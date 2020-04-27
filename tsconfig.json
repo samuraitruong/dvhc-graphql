@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "outDir": "./dist",
+    "target": "ESNext",
+    "module": "CommonJS",
+    "sourceMap": true,
+    "noImplicitAny": true,
+    "strict": false,
+    "esModuleInterop": true,
+    // "moduleResolution": "Node",
+    // "resolveJsonModule": true
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true
+  }
+}
