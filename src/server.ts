@@ -8,7 +8,7 @@ import { Database } from './repository/db';
 import winston from 'winston';
 import { createLogger } from './common/logger';
 import expressWinston from 'express-winston';
-
+import exphbs from 'express-handlebars';
 export class HttpApiServer {
   private app: express.Application;
   private logger: winston.Logger;
@@ -17,6 +17,37 @@ export class HttpApiServer {
     this.app = express();
     this.setupRoutes();
     this.setupLogging();
+    this.setupViewEngines();
+  }
+  private setupViewEngines() {
+    const hbs = exphbs.create({
+      partialsDir: ['./src/views'],
+
+      // Specify helpers which are only registered on this instance.
+      helpers: {
+        foo: () => {
+          return 'FOO!';
+        },
+        bar: () => {
+          return 'BAR!';
+        },
+      },
+    });
+
+    this.app.engine('handlebars', hbs.engine);
+    this.app.set('view engine', 'handlebars');
+
+    this.app.get('/', (req, res, next) => {
+      res.render('home', {
+        showTitle: true,
+        // Override `foo` helper only for this rendering.
+        // helpers: {
+        //   foo: function () {
+        //     return 'foo.';
+        //   },
+        // },
+      });
+    });
   }
   private setupLogging() {
     this.app.use(
