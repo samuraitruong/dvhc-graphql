@@ -2,6 +2,7 @@ import { Resolver, Query, Arg, FieldResolver, Root } from 'type-graphql';
 import { Province, District, Ward } from '../types';
 import { Database } from '../../repository/db';
 import { Inject } from 'typedi';
+import { DVHCTypes } from '../types/enums';
 // import { baseResolver } from './baseResolver';
 
 // const BaseProvineResolver = baseResolver('provine', Province);
@@ -10,8 +11,11 @@ import { Inject } from 'typedi';
 export class WardResolver {
   constructor(@Inject('DB') private db: Database) {}
   @Query((returns) => [Ward])
-  wards(@Arg('name', { nullable: true }) name: string) {
-    return this.db.getItems(null, name, 3);
+  wards(
+    @Arg('name', { nullable: true }) name: string,
+    @Arg('type', (_) => DVHCTypes, { nullable: true }) type: DVHCTypes
+  ) {
+    return this.db.getItems(null, name, 3, type);
   }
 
   @Query((returns) => Ward)

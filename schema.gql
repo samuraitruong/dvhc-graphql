@@ -17,8 +17,20 @@ type District {
   code: String!
   type: String!
   fullname: String!
-  wards(name: String): [Ward!]
+  wards(type: DVHCTypes, name: String): [Ward!]
   province: Province
+}
+
+"""List of DVHCs"""
+enum DVHCTypes {
+  THANH_PHO
+  TINH
+  THI_XA
+  QUAN
+  HUYEN
+  PHUONG
+  XA
+  THI_TRAN
 }
 
 type Province {
@@ -27,15 +39,15 @@ type Province {
   code: String!
   type: String!
   fullname: String!
-  districts(name: String): [District!]
+  districts(type: DVHCTypes, name: String): [District!]
 }
 
 type Query {
-  provinces(name: String): [Province!]!
+  provinces(type: DVHCTypes, name: String): [Province!]!
   province(name: String): Province!
-  districts(name: String): [District!]!
+  districts(type: DVHCTypes, name: String): [District!]!
   district(name: String): District!
-  wards(name: String): [Ward!]!
+  wards(type: DVHCTypes, name: String): [Ward!]!
   ward(name: String): Ward!
 }
 

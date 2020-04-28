@@ -2,6 +2,7 @@ import { Resolver, Query, Arg, FieldResolver, Root } from 'type-graphql';
 import { Province, District, Ward } from '../types';
 import { Database } from '../../repository/db';
 import { Inject } from 'typedi';
+import { DVHCTypes } from '../types/enums';
 // import { baseResolver } from './baseResolver';
 
 // const BaseProvineResolver = baseResolver('provine', Province);
@@ -10,13 +11,16 @@ import { Inject } from 'typedi';
 export class DistrictResolver {
   constructor(@Inject('DB') private db: Database) {}
   @Query((returns) => [District])
-  districts(@Arg('name', { nullable: true }) name: string) {
-    return this.db.getDistricts(name);
+  districts(
+    @Arg('name', { nullable: true }) name: string,
+    @Arg('type', (_) => DVHCTypes, { nullable: true }) type: DVHCTypes
+  ) {
+    return this.db.getItems(null, name, 2, type);
   }
 
   @Query((returns) => District)
   district(@Arg('name', { nullable: true }) name: string) {
-    return this.db.getDistrict(name);
+    return this.db.getItems(null, name, 2);
   }
 
   @FieldResolver(
@@ -37,8 +41,9 @@ export class DistrictResolver {
   )
   wards(
     @Root() district: District,
-    @Arg('name', { nullable: true }) name: string
+    @Arg('name', { nullable: true }) name: string,
+    @Arg('type', (_) => DVHCTypes, { nullable: true }) type: DVHCTypes
   ) {
-    return this.db.getItems(district._id, name);
+    return this.db.getItems(district._id, name, 3, type);
   }
 }
