@@ -12,7 +12,7 @@ export function baseResolver<T extends BaseItem>(
     constructor(@Inject('DB') private db: Database) {}
     @Query((returns) => [objectTypeCls], { name: `${suffix}` })
     items(@Arg('name', { nullable: true }) name: string) {
-      return this.db.getProvines(name);
+      return this.db.getItems(name);
     }
   }
 
