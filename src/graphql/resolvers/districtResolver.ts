@@ -35,7 +35,10 @@ export class DistrictResolver {
     },
     { nullable: true }
   )
-  wards(@Root() district: District) {
-    return this.db.getItems(district._id);
+  wards(
+    @Root() district: District,
+    @Arg('name', { nullable: true }) name: string
+  ) {
+    return this.db.getItems(district._id, name);
   }
 }

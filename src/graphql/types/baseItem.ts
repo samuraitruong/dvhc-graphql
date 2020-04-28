@@ -5,7 +5,7 @@ export class BaseItem {
   @Field((type) => ID, { name: 'id' })
   _id!: string;
 
-  @Field()
+  @Field({ nullable: true })
   name!: string;
 
   @Field()

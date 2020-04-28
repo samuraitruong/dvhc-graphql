@@ -24,7 +24,10 @@ export class ProvinceResolver {
     },
     { nullable: true }
   )
-  districts(@Root() province: Province) {
-    return this.db.getItems(province._id);
+  districts(
+    @Root() province: Province,
+    @Arg('name', { nullable: true }) name: string
+  ) {
+    return this.db.getItems(province._id, name);
   }
 }

@@ -5,7 +5,7 @@
 
 type BaseItem {
   id: ID!
-  name: String!
+  name: String
   code: String!
   type: String!
   fullname: String!
@@ -13,21 +13,21 @@ type BaseItem {
 
 type District {
   id: ID!
-  name: String!
+  name: String
   code: String!
   type: String!
   fullname: String!
-  wards: [Ward!]
+  wards(name: String): [Ward!]
   province: Province
 }
 
 type Province {
   id: ID!
-  name: String!
+  name: String
   code: String!
   type: String!
   fullname: String!
-  districts: [District!]
+  districts(name: String): [District!]
 }
 
 type Query {
@@ -41,7 +41,7 @@ type Query {
 
 type Ward {
   id: ID!
-  name: String!
+  name: String
   code: String!
   type: String!
   fullname: String!
