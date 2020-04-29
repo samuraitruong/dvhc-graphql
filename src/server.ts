@@ -9,11 +9,16 @@ import winston from 'winston';
 import { createLogger } from './common/logger';
 import expressWinston from 'express-winston';
 import exphbs from 'express-handlebars';
+import { ApiRouter } from './api/route';
+import { Controller } from './api/controller';
 export class HttpApiServer {
   private app: express.Application;
   private logger: winston.Logger;
+  private router: ApiRouter;
   constructor(private db: Database) {
     this.logger = createLogger('server');
+
+    this.router = new ApiRouter(new Controller(db));
     this.app = express();
     this.setupRoutes();
     this.setupLogging();
@@ -88,6 +93,8 @@ export class HttpApiServer {
         },
       })
     );
+
+    this.router.apply(this.app);
   }
   public start(port: number | number) {
     this.app.listen(port, () => {
