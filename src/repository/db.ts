@@ -1,4 +1,6 @@
-import { MongoClient, Collection, Db, ObjectID, ObjectId } from 'mongodb';
+import {
+  MongoClient, Collection, Db, ObjectID, ObjectId,
+} from 'mongodb';
 import winston from 'winston';
 import { Service } from 'typedi';
 import { createLogger } from '../common/logger';
@@ -8,9 +10,13 @@ import { createLogger } from '../common/logger';
 @Service()
 export class Database {
   private client: MongoClient;
+
   private collection: Collection | undefined;
+
   private db: Db | undefined;
+
   private logger: winston.Logger;
+
   constructor(connectionString: string, private databaseName: string) {
     this.client = new MongoClient(connectionString, {
       useNewUrlParser: true,
@@ -26,11 +32,12 @@ export class Database {
 
     this.logger.info('Successul connect to database');
   }
+
   public async getItem(
     id?: string,
     parentId?: string,
     name?: string,
-    level?: number
+    level?: number,
   ) {
     if (!this.collection) {
       throw new Error('Database not initialized');
@@ -56,7 +63,7 @@ export class Database {
     parentId?: string,
     name?: string,
     level?: number,
-    type?: string
+    type?: string,
   ) {
     if (!this.collection) {
       throw new Error('Database not initialized');

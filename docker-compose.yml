@@ -1,0 +1,18 @@
+version: '3'
+services:
+  dvhc_dev:
+    build:
+      context: .
+      dockerfile: Dockerfile_dev
+    image: dvhc_dev
+    ports:
+      - '8080:8080'
+    volumes:
+      - .:/usr/app
+    environment:
+      NODE_ENV: development
+      MONGO_CONNECTION_STRING: mongodb+srv://user_ro:o7vv7XCpbHwJxwVW@cluster0-b0cl8.gcp.mongodb.net/dvch?retryWrites=true&w=majority
+    entrypoint:
+      - npm
+      - run
+      - dev

@@ -1,0 +1,8 @@
+FROM node
+WORKDIR /usr/app
+#COPY . .
+RUN npm install
+#RUN npm build
+ENV  PORT=8080
+EXPOSE 8080
+# CMD node ./dist

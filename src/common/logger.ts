@@ -33,9 +33,9 @@ export function createLogger(loggerName: string = 'app') {
           // winston.format.prettyPrint(),
           winston.format.splat(),
           winston.format.simple(),
-          myFormat
+          myFormat,
         ),
-      })
+      }),
     );
   }
   return logger;
