@@ -11,6 +11,8 @@ import expressWinston from 'express-winston';
 import exphbs from 'express-handlebars';
 import { ApiRouter } from './api/route';
 import { Controller } from './api/controller';
+import bodyParser from 'body-parser';
+
 export class HttpApiServer {
   private app: express.Application;
   private logger: winston.Logger;
@@ -74,8 +76,7 @@ export class HttpApiServer {
   }
   private async setupRoutes() {
     // Singleton database instance
-    Container.set('DB', this.db);
-
+    this.app.use(bodyParser());
     const schema = await buildSchema({
       resolvers,
       emitSchemaFile: true,
