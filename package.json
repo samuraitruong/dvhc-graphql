@@ -23,9 +23,9 @@
   },
   "homepage": "https://github.com/samuraitruong/dvhc-graphql#readme",
   "dependencies": {
-    "body-parser": "^1.19.0",
+    "body-parser": "^1.20.1",
     "dotenv": "^8.2.0",
-    "express": "^4.17.1",
+    "express": "^4.18.2",
     "express-graphql": "^0.9.0",
     "express-handlebars": "^5.3.1",
     "express-winston": "^4.0.3",
